@@ -4,3 +4,6 @@ agent/sessions/**
 agent/auth.json
 *.log
 *.tmp
+
+agent/bin/
+

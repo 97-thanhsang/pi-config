@@ -1,4 +1,7 @@
 {
   "defaultProvider": "9router",
-  "defaultModel": "courier"
+  "defaultModel": "courier",
+  "lastChangelogVersion": "0.73.1",
+  "theme": "dark",
+  "hideThinkingBlock": false
 }
