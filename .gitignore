@@ -1,0 +1,6 @@
+# Pi Coding Agent Sessions & Local Storage
+agent/sessions/
+agent/sessions/**
+agent/auth.json
+*.log
+*.tmp
