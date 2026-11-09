@@ -1,7 +1,15 @@
 {
   "defaultProvider": "9router",
-  "defaultModel": "courier",
-  "lastChangelogVersion": "0.73.1",
+  "defaultModel": "conductor",
   "theme": "dark",
-  "hideThinkingBlock": false
+  "hideThinkingBlock": false,
+  "tuiMode": "fullscreen",
+  "extensions": [
+    "-builtin:llama.cpp"
+  ],
+  "skills": [
+    "-understand*",
+    "-reverse-engineer-anything*"
+  ],
+  "lastChangelogVersion": "1.5.0"
 }

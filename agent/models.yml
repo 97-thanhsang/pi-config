@@ -1,0 +1,58 @@
+providers:
+  9router:
+    baseUrl: http://127.0.0.1:20128/v1
+    apiKey: sk-cb13f948751762d1-g4t6pc-8ca93e66
+    api: openai-completions
+    models:
+      - id: courier
+        name: 9Router Courier
+        reasoning: false
+        input:
+          - text
+          - image
+        cost:
+          input: 0
+          output: 0
+          cacheRead: 0
+          cacheWrite: 0
+        contextWindow: 1048576
+        maxTokens: 65536
+      - id: conductor
+        name: 9Router Conductor
+        reasoning: false
+        input:
+          - text
+          - image
+        cost:
+          input: 0
+          output: 0
+          cacheRead: 0
+          cacheWrite: 0
+        contextWindow: 1048576
+        maxTokens: 65536
+      - id: forger
+        name: 9Router Forger
+        reasoning: false
+        input:
+          - text
+          - image
+        cost:
+          input: 0
+          output: 0
+          cacheRead: 0
+          cacheWrite: 0
+        contextWindow: 1048576
+        maxTokens: 65536
+      - id: deliberate
+        name: 9Router Deliberate
+        reasoning: false
+        input:
+          - text
+          - image
+        cost:
+          input: 0
+          output: 0
+          cacheRead: 0
+          cacheWrite: 0
+        contextWindow: 1048576
+        maxTokens: 65536

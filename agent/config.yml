@@ -1,0 +1,9 @@
+defaultProvider: 9router
+defaultModel: conductor
+hideThinkingBlock: false
+extensions:
+  - "-builtin:llama.cpp"
+skills:
+  - "-understand*"
+  - "-reverse-engineer-anything*"
+tuiMode: fullscreen

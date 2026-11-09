@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tài liệu Hướng dẫn Toàn bộ Slash Commands trong Pi Coding Agent</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card-bg: #161b22;
+      --border: #30363d;
+      --text-main: #c9d1d9;
+      --text-muted: #8b949e;
+      --accent: #58a6ff;
+      --accent-hover: #79c0ff;
+      --code-bg: #0a0c10;
+      --badge-bg: #238636;
+      --badge-text: #ffffff;
+      --tag-bg: #1f6feb22;
+      --tag-border: #388bfd66;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      color: #f0f6fc;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .search-box {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .search-box input {
+      width: 100%;
+      max-width: 500px;
+      padding: 0.75rem 1.25rem;
+      font-size: 1rem;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-main);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent);
+    }
+
+    .intro-banner {
+      background: linear-gradient(135deg, rgba(56, 139, 253, 0.1), rgba(35, 134, 54, 0.1));
+      border: 1px solid var(--tag-border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .intro-banner strong {
+      color: var(--accent-hover);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      color: #f0f6fc;
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .cmd-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .cmd-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.2rem;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .cmd-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    .cmd-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+
+    .cmd-name {
+      font-family: "Cascadia Code", "Fira Code", monospace;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: var(--accent);
+      background-color: var(--code-bg);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+
+    .cmd-badge {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      background-color: var(--tag-bg);
+      border: 1px solid var(--tag-border);
+      color: var(--accent-hover);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .cmd-desc {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      margin-bottom: 0.75rem;
+    }
+
+    .cmd-usage {
+      font-family: monospace;
+      font-size: 0.85rem;
+      background-color: var(--code-bg);
+      padding: 0.5rem;
+      border-radius: 4px;
+      color: #a5d6ff;
+      overflow-x: auto;
+    }
+
+    .info-card {
+      background-color: var(--card-bg);
+      border-left: 4px solid var(--accent);
+      padding: 1rem 1.25rem;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 1.5rem;
+    }
+
+    .info-card h4 {
+      color: #f0f6fc;
+      margin-bottom: 0.35rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>⚡ Pi Coding Agent - Hướng Dẫn Slash Commands</h1>
+      <p>Tổng hợp và hướng dẫn chi tiết toàn bộ lệnh bắt đầu bằng dấu <code>/</code> trong Pi CLI & TUI</p>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="🔍 Tìm kiếm lệnh (vd: /model, session, compact...)" onkeyup="filterCommands()">
+      </div>
+    </header>
+
+    <div class="intro-banner">
+      💡 <strong>Cách sử dụng:</strong> Gõ <code>/</code> ngay trong khung nhập liệu terminal của Pi để mở menu tìm kiếm và tự động hoàn thành (autocomplete) các lệnh có sẵn. Menu này sẽ phản ánh chính xác tất cả lệnh tích hợp sẵn lẫn các lệnh được nạp động từ <em>Extensions</em>, <em>Prompt Templates</em>, và <em>Skills</em>.
+    </div>
+
+    <!-- Models and Settings -->
+    <h2 class="section-title">🤖 Mô hình & Cấu hình (Models & Settings)</h2>
+    <div class="cmd-grid">
+      <div class="cmd-card" data-cmd="/settings">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/settings</span>
+            <span class="cmd-badge">Cấu hình</span>
+          </div>
+          <p class="cmd-desc">Mở giao diện tương tác cài đặt cấu hình Pi (Model, Theme, Editor, TUI preferences).</p>
+        </div>
+        <div class="cmd-usage">/settings</div>
+      </div>
+
+      <div class="cmd-card" data-cmd="/model">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/model</span>
+            <span class="cmd-badge">Mô hình</span>
+          </div>
+          <p class="cmd-desc">Chọn và đổi model AI cho phiên làm việc hiện tại hoặc chọn qua danh sách nhà cung cấp.</p>
+        </div>
+        <div class="cmd-usage">/model [provider/model]</div>
+      </div>
+
+      <div class="cmd-card" data-cmd="/thinking">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/thinking</span>
+            <span class="cmd-badge">Suy luận</span>
+          </div>
+          <p class="cmd-desc">Điều chỉnh mức độ suy luận (thinking level / reasoning effort) của model (nếu model có hỗ trợ).</p>
+        </div>
+        <div class="cmd-usage">/thinking [level]</div>
+      </div>
+
+      <div class="cmd-card" data-cmd="/scoped-models">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/scoped-models</span>
+            <span class="cmd-badge">Phạm vi</span>
+          </div>
+          <p class="cmd-desc">Cấu hình danh sách các model thường dùng để xoay vòng / chuyển đổi nhanh qua phím tắt.</p>
+        </div>
+        <div class="cmd-usage">/scoped-models</div>
+      </div>
+
+      <div class="cmd-card" data-cmd="/login">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/login</span>
+            <span class="cmd-badge">Xác thực</span>
+          </div>
+          <p class="cmd-desc">Thêm xác thực (API key, token OAuth) cho nhà cung cấp mô hình AI cụ thể.</p>
+        </div>
+        <div class="cmd-usage">/login [provider]</div>
+      </div>
+
+      <div class="cmd-card" data-cmd="/logout">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/logout</span>
+            <span class="cmd-badge">Xác thực</span>
+          </div>
+          <p class="cmd-desc">Đăng xuất hoặc xóa thông tin xác thực lưu trữ của nhà cung cấp đã cấu hình.</p>
+        </div>
+        <div class="cmd-usage">/logout [provider]</div>
+      </div>
+
+      <div class="cmd-card" data-cmd="/llama">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/llama</span>
+            <span class="cmd-badge">Local AI</span>
+          </div>
+          <p class="cmd-desc">Quản lý các model đang chạy trên router llama.cpp cục bộ (local inference).</p>
+        </div>
+        <div class="cmd-usage">/llama</div>
+      </div>
+    </div>
+
+    <!-- Sessions and Context -->
+    <h2 class="section-title">📂 Phiên làm việc & Ngữ cảnh (Sessions & Context)</h2>
+    <div class="cmd-grid">
+      <div class="cmd-card" data-cmd="/new">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/new</span>
+            <span class="cmd-badge">Session</span>
+          </div>
+          <p class="cmd-desc">Bắt đầu một phiên hội thoại mới hoàn toàn, làm sạch ngữ cảnh hiện tại.</p>
+        </div>
+        <div class="cmd-usage">/new</div>
+      </div>
+
+      <div class="cmd-card" data-cmd="/resume">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/resume</span>
+            <span class="cmd-badge">Session</span>
+          </div>
+          <p class="cmd-desc">Xem danh sách và tiếp tục một phiên làm việc trước đó đã lưu trong lịch sử.</p>
+        </div>
+        <div class="cmd-usage">/resume</div>
+      </div>
+
+      <div class="cmd-card" data-cmd="/name">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/name</span>
+            <span class="cmd-badge">Session</span>
+          </div>
+          <p class="cmd-desc">Đặt tên gợi nhớ cho phiên làm việc hiện tại, hoặc xem tên hiện tại nếu không nhập đối số.</p>
+        </div>
+        <div class="cmd-usage">/name [tên_session]</div>
+      </div>
+
+      <div class="cmd-card" data-cmd="/session">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/session</span>
+            <span class="cmd-badge">Thông số</span>
+          </div>
+          <p class="cmd-desc">Hiển thị chi tiết thống kê về phiên hiện tại: số token, model đang dùng, thời gian và ID phiên.</p>
+        </div>
+        <div class="cmd-usage">/session</div>
+      </div>
+
+      <div class="cmd-card" data-cmd="/tree">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/tree</span>
+            <span class="cmd-badge">Điều hướng</span>
+          </div>
+          <p class="cmd-desc">Duyệt và điều hướng cây hội thoại phân nhánh của phiên làm việc.</p>
+        </div>
+        <div class="cmd-usage">/tree</div>
+      </div>
+
+      <div class="cmd-card" data-cmd="/fork">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/fork</span>
+            <span class="cmd-badge">Phân nhánh</span>
+          </div>
+          <p class="cmd-desc">Tạo một phiên làm việc mới bắt đầu từ một tin nhắn cụ thể của người dùng trong lịch sử.</p>
+        </div>
+        <div class="cmd-usage">/fork</div>
+      </div>
+
+      <div class="cmd-card" data-cmd="/clone">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/clone</span>
+            <span class="cmd-badge">Nhân bản</span>
+          </div>
+          <p class="cmd-desc">Tạo bản sao chính xác của phiên làm việc hiện tại tại thời điểm hiện tại.</p>
+        </div>
+        <div class="cmd-usage">/clone</div>
+      </div>
+
+      <div class="cmd-card" data-cmd="/compact">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/compact</span>
+            <span class="cmd-badge">Tối ưu token</span>
+          </div>
+          <p class="cmd-desc">Nén và tóm tắt ngữ cảnh lịch sử hội thoại để tiết kiệm token, có thể cung cấp thêm yêu cầu tóm tắt tùy ý.</p>
+        </div>
+        <div class="cmd-usage">/compact [hướng_dẫn_tóm_tắt]</div>
+      </div>
+
+      <div class="cmd-card" data-cmd="/import">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/import</span>
+            <span class="cmd-badge">Nhập</span>
+          </div>
+          <p class="cmd-desc">Nhập một phiên làm việc từ file JSONL, giữ nguyên ID và đường dẫn thư mục làm việc gốc.</p>
+        </div>
+        <div class="cmd-usage">/import &lt;đường_dẫn_file.jsonl&gt;</div>
+      </div>
+    </div>
+
+    <!-- Export and Share -->
+    <h2 class="section-title">📤 Xuất dữ liệu & Chia sẻ (Export & Share)</h2>
+    <div class="cmd-grid">
+      <div class="cmd-card" data-cmd="/copy">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/copy</span>
+            <span class="cmd-badge">Clipboard</span>
+          </div>
+          <p class="cmd-desc">Sao chép nội dung câu trả lời gần nhất của trợ lý AI vào clipboard.</p>
+        </div>
+        <div class="cmd-usage">/copy</div>
+      </div>
+
+      <div class="cmd-card" data-cmd="/export">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/export</span>
+            <span class="cmd-badge">Xuất file</span>
+          </div>
+          <p class="cmd-desc">Xuất toàn bộ phiên làm việc ra định dạng HTML trực quan hoặc JSONL dữ liệu gốc.</p>
+        </div>
+        <div class="cmd-usage">/export [đường_dẫn]</div>
+      </div>
+
+      <div class="cmd-card" data-cmd="/share">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/share</span>
+            <span class="cmd-badge">Chia sẻ</span>
+          </div>
+          <p class="cmd-desc">Tải phiên làm việc lên dịch vụ web và trả về liên kết xem trực tuyến an toàn.</p>
+        </div>
+        <div class="cmd-usage">/share</div>
+      </div>
+
+      <div class="cmd-card" data-cmd="/bug">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/bug</span>
+            <span class="cmd-badge">Báo lỗi</span>
+          </div>
+          <p class="cmd-desc">Chuẩn bị báo cáo lỗi riêng tư gửi đến đội ngũ phát triển Pi kèm theo thông tin phiên chẩn đoán.</p>
+        </div>
+        <div class="cmd-usage">/bug [mô_tả_lỗi]</div>
+      </div>
+    </div>
+
+    <!-- Runtime and Project -->
+    <h2 class="section-title">⚙️ Môi trường & Dự án (Runtime & Project)</h2>
+    <div class="cmd-grid">
+      <div class="cmd-card" data-cmd="/trust">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/trust</span>
+            <span class="cmd-badge">Bảo mật</span>
+          </div>
+          <p class="cmd-desc">Lưu trạng thái tin cậy dự án hiện tại để cho phép chạy lệnh và nạp extension tự động trong tương lai.</p>
+        </div>
+        <div class="cmd-usage">/trust</div>
+      </div>
+
+      <div class="cmd-card" data-cmd="/mcp">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/mcp</span>
+            <span class="cmd-badge">Giao thức MCP</span>
+          </div>
+          <p class="cmd-desc">Quản lý các server Model Context Protocol: đăng nhập, kết nối lại, bật/tắt công cụ và điều chỉnh quyền truy cập.</p>
+        </div>
+        <div class="cmd-usage">/mcp</div>
+      </div>
+
+      <div class="cmd-card" data-cmd="/reload">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/reload</span>
+            <span class="cmd-badge">Làm mới</span>
+          </div>
+          <p class="cmd-desc">Tải lại cấu hình: phím tắt, extensions, skills, prompt templates, themes và context files mà không cần khởi động lại.</p>
+        </div>
+        <div class="cmd-usage">/reload</div>
+      </div>
+
+      <div class="cmd-card" data-cmd="/hotkeys">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/hotkeys</span>
+            <span class="cmd-badge">Phím tắt</span>
+          </div>
+          <p class="cmd-desc">Hiển thị bảng danh sách toàn bộ phím tắt đang hoạt động trong Pi TUI.</p>
+        </div>
+        <div class="cmd-usage">/hotkeys</div>
+      </div>
+
+      <div class="cmd-card" data-cmd="/changelog">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/changelog</span>
+            <span class="cmd-badge">Nhật ký</span>
+          </div>
+          <p class="cmd-desc">Xem nhật ký thay đổi và các tính năng mới được cập nhật qua các phiên bản Pi.</p>
+        </div>
+        <div class="cmd-usage">/changelog</div>
+      </div>
+
+      <div class="cmd-card" data-cmd="/quit">
+        <div>
+          <div class="cmd-header">
+            <span class="cmd-name">/quit</span>
+            <span class="cmd-badge">Thoát</span>
+          </div>
+          <p class="cmd-desc">Đóng và thoát hoàn toàn ứng dụng Pi (tương đương nhấn Ctrl+D hoặc Ctrl+C khi ô nhập trống).</p>
+        </div>
+        <div class="cmd-usage">/quit</div>
+      </div>
+    </div>
+
+    <!-- Dynamic Commands -->
+    <h2 class="section-title">🧩 Lệnh Động Mở Rộng (Dynamic Resources)</h2>
+    <div class="info-card">
+      <h4>Các lệnh mở rộng do tài nguyên nạp vào:</h4>
+      <ul>
+        <li><strong>Prompt Templates:</strong> Bất kỳ template nào đặt trong thư mục <code>prompt-templates</code> hoặc config đều trở thành lệnh dạng <code>/&lt;tên_template&gt;</code>.</li>
+        <li><strong>Skills:</strong> Khi bật tính năng skill commands, các skill được gọi theo định dạng <code>/skill:&lt;tên_skill&gt;</code>.</li>
+        <li><strong>Extensions:</strong> Các tiện ích mở rộng có thể đăng ký lệnh riêng biệt cùng đối số và gợi ý tự động.</li>
+      </ul>
+      <p style="margin-top: 0.5rem; color: var(--text-muted); font-size: 0.9rem;">
+        * Mẹo: Sau khi thêm hoặc sửa đổi skills, prompt templates hoặc extensions, bạn chỉ cần gõ <code>/reload</code> để cập nhật danh sách ngay lập tức!
+      </p>
+    </div>
+
+    <footer>
+      Tài liệu tạo bởi Pi Coding Agent • Thư mục <code>docs/</code>
+    </footer>
+  </div>
+
+  <script>
+    function filterCommands() {
+      const input = document.getElementById('searchInput');
+      const filter = input.value.toLowerCase();
+      const cards = document.querySelectorAll('.cmd-card');
+
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (text.includes(filter)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
