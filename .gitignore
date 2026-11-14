@@ -4,6 +4,7 @@ agent/sessions/**
 agent/auth.json
 agent/trust.json
 agent/models-store.json
+agent/mcp.json
 agent/last-changelog-version
 *.db
 *.db-shm
