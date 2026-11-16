@@ -56,12 +56,16 @@ Once user confirms, proceed to Stage 5.
 6. Write execution log to `workflow/${1:-$ARGUMENTS}/progress.md`.
 7. Update `workflow/${1:-$ARGUMENTS}/summary.md` (Stage 5: Complete).
 
-### Stage 6: Verify
-1. Dispatch subagent `verifier` to execute full test suite and verify every AC line-by-line.
-2. Dispatch subagent `reviewer` to inspect `git diff --staged` for code quality, smells, and safety.
-3. If tests fail, investigate root cause using skill `asc-systematic-debugging`.
-4. Write verification verdict to `workflow/${1:-$ARGUMENTS}/verify-report.md`.
-5. Update `workflow/${1:-$ARGUMENTS}/summary.md` (Stage 6: Complete, Status: VERIFIED).
+### Stage 6: Verify & QC (Acceptance Testing)
+1. Run acceptance verification using `/qc ${1:-$ARGUMENTS}` or `/verify ${1:-$ARGUMENTS}`:
+   - Execute full test suite and verify every AC line-by-line via subagent `verifier`.
+   - Dispatch subagent `reviewer` to inspect `git diff --staged` for code quality, smells, and safety.
+   - For UI/full-stack features, execute headed browser acceptance testing: 3-way Triangulation (UI $\equiv$ API $\equiv$ Database) using skill `qc-acceptance-tester`.
+   - If tests fail, investigate root cause using skill `asc-systematic-debugging`.
+2. Ensure output artifacts are generated:
+   - `workflow/${1:-$ARGUMENTS}/verify-report.md` (or `qc-report.md`)
+   - `workflow/${1:-$ARGUMENTS}/evidence/` (annotated screenshots and reconciliation data)
+3. Update `workflow/${1:-$ARGUMENTS}/summary.md` (Stage 6: Complete, Status: VERIFIED / QC_PASS).
 
 ### Stage 7: Extractor
 1. Load skill `extractor-to-knowledge`.
