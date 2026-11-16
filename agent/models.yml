@@ -56,3 +56,29 @@ providers:
           cacheWrite: 0
         contextWindow: 1048576
         maxTokens: 65536
+      - id: artisan
+        name: 9Router Artisan
+        reasoning: false
+        input:
+          - text
+          - image
+        cost:
+          input: 0
+          output: 0
+          cacheRead: 0
+          cacheWrite: 0
+        contextWindow: 1048576
+        maxTokens: 65536
+      - id: artificer
+        name: 9Router Artificer
+        reasoning: false
+        input:
+          - text
+          - image
+        cost:
+          input: 0
+          output: 0
+          cacheRead: 0
+          cacheWrite: 0
+        contextWindow: 1048576
+        maxTokens: 65536
