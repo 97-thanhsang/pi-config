@@ -1,6 +1,7 @@
 defaultProvider: 9router
 defaultModel: conductor
 hideThinkingBlock: false
+shellPath: C:\Program Files\Git\bin\bash.exe
 extensions:
   - "-builtin:llama.cpp"
 skills:

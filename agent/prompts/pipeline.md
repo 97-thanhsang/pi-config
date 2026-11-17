@@ -1,25 +1,31 @@
 ---
-description: Master End-to-End Orchestrator running the complete 7-stage pipeline sequentially with human gate before execution.
+description: Master End-to-End Orchestrator running the complete pipeline from Stage 0 Intake to Stage 7 Extractor.
 argument-hint: "<KEY>"
 ---
 
 # Master Pipeline Orchestrator — End-to-End Workflow
 
-You are orchestrating the complete 7-stage engineering pipeline for requirement: `${1:-$ARGUMENTS}`.
+You are orchestrating the complete engineering pipeline for requirement: `${1:-$ARGUMENTS}`.
 
 ## Execution Sequence
 
-Follow these 7 stages in strict sequence, ensuring all output artifacts are generated under `workflow/${1:-$ARGUMENTS}/`:
+Follow these 8 stages in strict sequence, ensuring all output artifacts are generated under `workflow/${1:-$ARGUMENTS}/`:
+
+### Stage 0: Intake
+1. Run `/intake ${1:-$ARGUMENTS}`:
+   - Extract requirement context from Jira (via MCP `jira-server`).
+   - Scaffold project-local `.pi/mcp.json` if missing and add to `.gitignore`.
+   - Recommend conventional Git branch (`feature/${1:-$ARGUMENTS}-{slug}`).
+   - Initialize `workflow/${1:-$ARGUMENTS}/context.json` and `workflow/${1:-$ARGUMENTS}/summary.md`.
 
 ### Stage 1: Blueprint
-1. Extract requirement context from Jira (via MCP `jira-server`) or project issue tracker.
-2. Initialize `workflow/${1:-$ARGUMENTS}/context.json` with project paths (`fePath`, `bePath`, `dbName`).
-3. Dispatch subagent `scout` to survey codebase touchpoints.
-4. If database changes are needed, extract schema and generate `workflow/${1:-$ARGUMENTS}/diagrams/database-erd.html` using skill `architecture-diagram-generator`.
-5. Write 11-section design reports using skill `blueprint-writer`:
-   - `workflow/${1:-$ARGUMENTS}/blueprint-be.md`
-   - `workflow/${1:-$ARGUMENTS}/blueprint-fe.md`
-   - `workflow/${1:-$ARGUMENTS}/summary.md` (Stage 1: Complete)
+1. Run `/blueprint ${1:-$ARGUMENTS}`:
+   - Dispatch subagent `scout` to survey codebase touchpoints.
+   - If database changes are needed, extract schema and generate `workflow/${1:-$ARGUMENTS}/diagrams/database-erd.html` using skill `architecture-diagram-generator`.
+   - Write 11-section design reports using skill `blueprint-writer`:
+     - `workflow/${1:-$ARGUMENTS}/blueprint-be.md`
+     - `workflow/${1:-$ARGUMENTS}/blueprint-fe.md`
+     - `workflow/${1:-$ARGUMENTS}/summary.md` (Stage 1: Complete)
 
 ### Stage 2: Decompose
 1. Load skill `jira-decompose`.
@@ -60,6 +66,7 @@ Once user confirms, proceed to Stage 5.
 1. Run acceptance verification using `/qc ${1:-$ARGUMENTS}` or `/verify ${1:-$ARGUMENTS}`:
    - Execute full test suite and verify every AC line-by-line via subagent `verifier`.
    - Dispatch subagent `reviewer` to inspect `git diff --staged` for code quality, smells, and safety.
+   - Dispatch subagent `security-reviewer` for vulnerability discovery (SQL injection, auth bypass, secret leaks).
    - For UI/full-stack features, execute headed browser acceptance testing: 3-way Triangulation (UI $\equiv$ API $\equiv$ Database) using skill `qc-acceptance-tester`.
    - If tests fail, investigate root cause using skill `asc-systematic-debugging`.
 2. Ensure output artifacts are generated:

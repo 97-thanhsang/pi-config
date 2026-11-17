@@ -3,6 +3,7 @@
   "defaultModel": "conductor",
   "theme": "dark",
   "hideThinkingBlock": false,
+  "shellPath": "C:\\Program Files\\Git\\bin\\bash.exe",
   "tuiMode": "fullscreen",
   "extensions": [
     "-builtin:llama.cpp"
