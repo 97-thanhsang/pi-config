@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "router": { "base": "http://127.0.0.1:20128", "health": "/api/health" },
+  "shim": { "base": "http://127.0.0.1:20129", "health": "/health" },
+  "db": "%APPDATA%/9router/db/data.sqlite",
+  "shimLog": "%APPDATA%/9router/fix/shim.log",
+  "shimStart": "%APPDATA%/9router/fix/start-shim.cmd",
+  "matrixDoc": "~/.config/opencode/rules/infrastructure/9router-matrix.md",
+  "harnesses": [
+    {
+      "id": "omp",
+      "name": "omp",
+      "kind": "omp",
+      "config": "~/.omp/agent/models.yml",
+      "process": "omp.exe",
+      "systemPrompt": true
+    },
+    {
+      "id": "pi",
+      "name": "pi",
+      "kind": "pi",
+      "config": "~/.pi/agent/models.json",
+      "process": "pi-coding-agent",
+      "systemPrompt": true
+    },
+    {
+      "id": "opencode",
+      "name": "opencode",
+      "kind": "opencode",
+      "config": "~/.config/opencode/opencode.json",
+      "process": "opencode.exe",
+      "systemPrompt": true
+    },
+    {
+      "id": "codex",
+      "name": "codex",
+      "kind": "codex",
+      "config": "~/.codex/config.toml",
+      "process": "codex.exe",
+      "systemPrompt": true
+    },
+    {
+      "id": "claude",
+      "name": "claude",
+      "kind": "claude",
+      "config": "~/.claude/settings.json",
+      "process": "claude.exe",
+      "systemPrompt": true
+    },
+    {
+      "id": "gemini",
+      "name": "gemini",
+      "kind": "gemini",
+      "config": "~/.gemini/settings.json",
+      "process": "gemini",
+      "systemPrompt": true
+    }
+  ]
+}
